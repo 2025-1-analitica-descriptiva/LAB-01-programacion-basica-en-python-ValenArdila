@@ -4,7 +4,7 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
-
+import csv
 
 def pregunta_09():
     """
@@ -24,3 +24,24 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+
+    with open('files/input/data.csv', 'r') as f:
+        reader = csv.reader(f, delimiter='\t')
+        dic = {}
+        for row in reader:
+            pares = row[4].split(",")
+            for par in pares:
+                clave, valor = par.split(":")
+                if clave not in dic:
+                    dic[clave] = 1
+                else:
+                    dic[clave]+=1
+        
+        resultado = dict(sorted(dic.items(), key=lambda x:x[0]))
+        
+    return resultado
+        
+
+
+if __name__ == "__main__":
+    print(pregunta_09())
